@@ -17,6 +17,6 @@ export class UserComponent {
   readonly dialog = inject(MatDialog);
 
   openDialog() {
-    this.dialog.open(DialogAddUserComponent)
+    this.dialog.open(DialogAddUserComponent);
   }
 }
