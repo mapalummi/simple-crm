@@ -20,6 +20,7 @@ export class UserComponent {
 
   // Variable und neue Instanz für neuen User erstellen:
   user = new User();
+  
 
   constructor() {}
 

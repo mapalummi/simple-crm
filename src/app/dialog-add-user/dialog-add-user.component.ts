@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-
 import { User } from '../../models/user.class'; // Verknüpfung zur user.class.ts !!!
 
 @Component({
@@ -29,10 +28,12 @@ import { User } from '../../models/user.class'; // Verknüpfung zur user.class.t
 export class DialogAddUserComponent {
   // Variable und neue Instanz für neuen User erstellen:
   user = new User();
+  birthDate: Date | null = null; // Initialwert setzen!
 
   constructor() {}
 
   saveUser() {
+    this.user.birthDate = this.birthDate?.getTime() ?? null;
     console.log('Current user is', this.user);
   }
 }
