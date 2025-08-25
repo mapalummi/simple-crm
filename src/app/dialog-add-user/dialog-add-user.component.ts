@@ -36,22 +36,16 @@ export class DialogAddUserComponent {
 
   constructor() {}
 
-  saveUser() {
+  async saveUser() {
     this.user.birthDate = this.birthDate?.getTime() ?? null;
     console.log('Current user is', this.user);
 
-    //   this.firestore
-    //   .collection('users')
-    //   .add(this.user)
-    //   .then((result: any) => {
-    //     console.log('Adding user finished', result);
-    //   });
-    // }
-
-    const docRef = await addDoc(collection(db, 'cities'), {
-      name: 'Tokyo',
-      country: 'Japan',
-    });
-    console.log('Document written with ID: ', docRef.id);
+    try {
+      const usersCollection = collection(this.firestore, 'users');
+      const docRef = await addDoc(usersCollection, { ...this.user });
+      console.log('Adding user finished', docRef.id);
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
   }
 }
