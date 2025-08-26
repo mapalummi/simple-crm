@@ -1,11 +1,15 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
     <div class="logo-container">
-      <img src="img/crm-logo.png" alt="">
+      <img class="logo" src="img/crm-logo.png" alt="" />
     </div>
     <ul class="menu-items">
-      <li routerLink="/"><mat-icon class="menu-icon">fact_check</mat-icon>Dashboard</li>
-      <li routerLink="/user"><mat-icon class="menu-icon">perm_identity</mat-icon>User</li>
+      <li routerLink="/">
+        <mat-icon class="menu-icon">fact_check</mat-icon>Dashboard
+      </li>
+      <li routerLink="/user">
+        <mat-icon class="menu-icon">perm_identity</mat-icon>User
+      </li>
     </ul>
   </mat-drawer>
 
@@ -20,9 +24,5 @@
     <div class="router-container">
       <router-outlet />
     </div>
-    
-
-
   </div>
-
 </mat-drawer-container>
