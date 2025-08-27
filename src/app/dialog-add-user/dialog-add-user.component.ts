@@ -49,12 +49,14 @@ export class DialogAddUserComponent {
 
     try {
       const usersCollection = collection(this.firestore, 'users');
-      const docRef = await addDoc(usersCollection, { ...this.user });
+      const { id, ...userData } = this.user;
+      const docRef = await addDoc(usersCollection, userData);
       console.log('Adding user finished', docRef.id);
       this.loading = false;
       this.dialogRef.close();
     } catch (error) {
       console.error('Error adding user:', error);
+      this.loading = false;
     }
   }
 }

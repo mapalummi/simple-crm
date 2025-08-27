@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core'; // `inject` hier importieren
+import { Component, inject, OnDestroy, OnInit } from '@angular/core'; // `inject` hier importieren
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,16 +7,11 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { User } from '../../models/user.class'; // Verknüpfung zur user.class.ts !!!
 import { MatCardModule } from '@angular/material/card';
 
-import {
-  Firestore,
-  collection,
-  getDocs,
-  onSnapshot,
-} from '@angular/fire/firestore'; // NEU
+import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-user',
-  standalone: true, // <--- Das ist wichtig!
+  standalone: true, // <--- wichtig!
   imports: [
     MatIconModule,
     MatTooltipModule,
@@ -27,8 +22,13 @@ import {
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
-export class UserComponent {
-  firestore: Firestore = inject(Firestore); // NEU
+export class UserComponent implements OnInit, OnDestroy {
+  // documents: any[] = []; //Neu
+  documents: User[] = [];
+
+  private unsubscribeFromFirestore?: () => void; //Neu
+
+  firestore: Firestore = inject(Firestore);
 
   // Mit `inject` bekommst du eine Instanz des `MatDialog` Services direkt in einer Eigenschaft. Kein Konstruktor mehr nötig, wenn dieser keine andere Aufgabe hat.
   readonly dialog = inject(MatDialog);
@@ -40,10 +40,32 @@ export class UserComponent {
 
   // NEU:
   ngOnInit(): void {
-    console.log('OnInit');
+    // Initialisierung des Firestore-Listeners
+    const collectionRef = collection(this.firestore, 'users');
 
-   
-    
+    // Die onSnapshot-Funktion gibt eine Unsubscribe-Funktion zurück
+    this.unsubscribeFromFirestore = onSnapshot(
+      collectionRef,
+      (querySnapshot) => {
+        this.documents = querySnapshot.docs.map(
+          (doc) =>
+            new User({
+              id: doc.id,
+              ...doc.data(),
+            })
+        );
+        console.log('Daten wurden aktualisiert:', this.documents);
+      }
+    );
+  }
+
+  // NEU:
+  ngOnDestroy(): void {
+    // Abbestellen des Listeners, wenn die Komponente zerstört wird
+    if (this.unsubscribeFromFirestore) {
+      this.unsubscribeFromFirestore();
+      console.log('Firestore-Listener wurde erfolgreich abbestellt.');
+    }
   }
 
   openDialog() {
