@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { NgForOf } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,8 @@ import { NgForOf } from "@angular/common";
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
-    NgForOf
+    NgForOf,
+    RouterLink
 ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
