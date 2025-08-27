@@ -5,11 +5,16 @@
   align-items: flex-start;
   background-color: rgb(232, 89, 0);
   color: white;
+  padding: 12px;
 }
 
 .user-detail-flex {
   display: flex;
   align-items: center;
+
+  h2{
+    margin: 0;
+  }
 }
 
 .user-detail-flex img {
