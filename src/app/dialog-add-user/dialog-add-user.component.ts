@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <--- Das ist wichtig für ngModel!
+import { FormsModule } from '@angular/forms'; // <--- wichtig für ngModel!
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -19,7 +19,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
-    FormsModule, // <--- Das ist wichtig für ngModel!
+    FormsModule, // <--- wichtig für ngModel!
     MatDialogModule,
     MatButtonModule,
     MatInputModule,

@@ -8,6 +8,7 @@ import { User } from '../../models/user.class'; // Verknüpfung zur user.class.t
 import { MatCardModule } from '@angular/material/card';
 
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-user',
@@ -18,7 +19,8 @@ import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
-  ],
+    NgForOf
+],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
@@ -35,10 +37,11 @@ export class UserComponent implements OnInit, OnDestroy {
 
   // Variable und neue Instanz für neuen User erstellen:
   user = new User();
+  allUsers: User[] = []; // Leeres Array für die Änderungen aus Firestore
 
   constructor() {}
 
-  // NEU:
+  
   ngOnInit(): void {
     // Initialisierung des Firestore-Listeners
     const collectionRef = collection(this.firestore, 'users');
@@ -47,19 +50,21 @@ export class UserComponent implements OnInit, OnDestroy {
     this.unsubscribeFromFirestore = onSnapshot(
       collectionRef,
       (querySnapshot) => {
-        this.documents = querySnapshot.docs.map(
+        const users = querySnapshot.docs.map(
           (doc) =>
             new User({
               id: doc.id,
               ...doc.data(),
             })
         );
+        this.documents = users;
+        this.allUsers = users;
         console.log('Daten wurden aktualisiert:', this.documents);
       }
     );
   }
 
-  // NEU:
+
   ngOnDestroy(): void {
     // Abbestellen des Listeners, wenn die Komponente zerstört wird
     if (this.unsubscribeFromFirestore) {
