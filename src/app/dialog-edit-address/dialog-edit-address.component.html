@@ -1,21 +1,12 @@
 <div class="dialog-container">
-  
   <h2 mat-dialog-title>Edit Address</h2>
   <mat-dialog-content>
-
-    
-
-    
-
-
-
     <div>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Street + Housenumber</mat-label>
         <input
-          
-          [(ngModel)]="user.street"
           matInput
+          [(ngModel)]="user.street"
           placeholder="Street and Number"
         />
       </mat-form-field>
@@ -25,28 +16,21 @@
       <mat-form-field class="mr-16" appearance="outline">
         <mat-label>Zip code</mat-label>
         <input
-          
+          matInput
           [(ngModel)]="user.zipCode"
           type="number"
-          matInput
           placeholder="Zip Code"
         />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>City</mat-label>
-        <input
-          
-          [(ngModel)]="user.city"
-          matInput
-          placeholder="City"
-        />
+        <input matInput [(ngModel)]="user.city" placeholder="City" />
       </mat-form-field>
     </div>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button mat-button (click)="dialogRef.close()">Cancel</button>
-    <button mat-button  cdkFocusInitial>Save</button>
+    <button mat-button cdkFocusInitial>Save</button>
   </mat-dialog-actions>
 </div>
-
