@@ -6,10 +6,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { User } from '../../models/user.class'; // Verknüpfung zur user.class.ts !!!
 import { MatCardModule } from '@angular/material/card';
-
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
-import { NgForOf } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import { NgForOf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -21,8 +20,8 @@ import { RouterLink } from "@angular/router";
     MatDialogModule,
     MatCardModule,
     NgForOf,
-    RouterLink
-],
+    RouterLink,
+  ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
@@ -42,7 +41,6 @@ export class UserComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
-  
   ngOnInit(): void {
     // Initialisierung des Firestore-Listeners
     const collectionRef = collection(this.firestore, 'users');
@@ -60,17 +58,16 @@ export class UserComponent implements OnInit, OnDestroy {
         );
         this.documents = users;
         this.allUsers = users;
-        console.log('Daten wurden aktualisiert:', this.documents);
+        // console.log('Daten wurden aktualisiert:', this.documents);
       }
     );
   }
-
 
   ngOnDestroy(): void {
     // Abbestellen des Listeners, wenn die Komponente zerstört wird
     if (this.unsubscribeFromFirestore) {
       this.unsubscribeFromFirestore();
-      console.log('Firestore-Listener wurde erfolgreich abbestellt.');
+      // console.log('Firestore-Listener wurde erfolgreich abbestellt.');
     }
   }
 

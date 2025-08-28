@@ -38,7 +38,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.userId = paramMap.get('id') || ''; // So ist userId immer ein String !!! 'id' weil in den Routes so festgelegt.
-      console.log('GOT ID', this.userId);
+      // console.log('GOT ID', this.userId);
       this.getUser();
     });
   }
@@ -50,7 +50,7 @@ export class UserDetailComponent implements OnInit {
     if (userSnap.exists()) {
       const data = userSnap.data();
       this.user = new User({ ...data, id: userSnap.id }); // <-- Typisierung und ID
-      console.log('Retrieved user', this.user);
+      // console.log('Retrieved user', this.user);
     } else {
       this.user = null;
       console.log('Found no user!');
