@@ -1,4 +1,18 @@
 <mat-card class="user-detail-header">
+  <button
+    mat-icon-button
+    color="primary"
+    class="right-upper-icon"
+    aria-label="Example icon button with a vertical three dot icon"
+    [matMenuTriggerFor]="userMenu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="editUserDetail()">Edit</button>
+  </mat-menu>
+
   <div class="user-detail-flex">
     <img src="img/profilbild1.png" alt="" />
     <div>
@@ -10,28 +24,19 @@
 </mat-card>
 
 <mat-card class="mt-32">
-
-
-    
   <button
     mat-icon-button
     color="primary"
     class="right-upper-icon"
     aria-label="Example icon button with a vertical three dot icon"
-    [matMenuTriggerFor]="menu"
-    (click)="openAddressDialog()"
+    [matMenuTriggerFor]="addressMenu"
   >
     <mat-icon>more_vert</mat-icon>
   </button>
 
-
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+  <mat-menu #addressMenu="matMenu">
+    <button mat-menu-item (click)="editMenu()">Edit</button>
   </mat-menu>
-
-
-
 
   <mat-card-header>
     <mat-card-title>Address</mat-card-title>

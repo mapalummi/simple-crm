@@ -3,14 +3,23 @@ import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router'; // NEU
 import { User } from '../../models/user.class';
 import { Firestore, collection, doc, getDoc } from '@angular/fire/firestore';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDialogModule,
+  ],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })
@@ -18,6 +27,8 @@ export class UserDetailComponent implements OnInit {
   // implements OnInit neu
 
   firestore: Firestore = inject(Firestore);
+
+  readonly dialog = inject(MatDialog);
 
   userId = ''; // Variable gesetzt
   user: User | null = null; // NEU
@@ -32,7 +43,6 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  // TODO: Mit Firebase Doku abgleichen !!!
   async getUser() {
     if (!this.userId) return;
     const userDocRef = doc(this.firestore, 'users', this.userId);
@@ -47,7 +57,14 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
-  openAddressDialog(){
+  editMenu() {
+    if (this.user) {
+      const dialog = this.dialog.open(DialogEditAddressComponent);
+      dialog.componentInstance.user = this.user;
+    }
+  }
 
+  editUserDetail() {
+    this.dialog.open(DialogEditUserComponent);
   }
 }

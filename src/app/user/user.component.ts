@@ -27,7 +27,6 @@ import { RouterLink } from "@angular/router";
   styleUrl: './user.component.scss',
 })
 export class UserComponent implements OnInit, OnDestroy {
-  // documents: any[] = []; //Neu
   documents: User[] = [];
 
   private unsubscribeFromFirestore?: () => void; //Neu
