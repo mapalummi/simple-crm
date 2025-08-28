@@ -15,6 +15,9 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class DialogEditAddressComponent {
   user!: User;
+  // loading = false;
 
   constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>) {}
+
+  saveUser(){}
 }
