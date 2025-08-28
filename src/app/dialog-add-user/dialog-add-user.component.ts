@@ -63,12 +63,12 @@ export class DialogAddUserComponent {
   async saveUser() {
     this.user.birthDate = this.birthDate?.getTime() ?? null;
     this.loading = true;
-    console.log('Current user is', this.user);
+    // console.log('Current user is', this.user);
 
     try {
       const usersCollection = collection(this.firestore, 'users');
       const docRef = await addDoc(usersCollection, this.user.toJSON());
-      console.log('Adding user finished', docRef.id);
+      // console.log('Adding user finished', docRef.id);
       this.loading = false;
       this.dialogRef.close();
     } catch (error) {

@@ -63,6 +63,7 @@ export class UserDetailComponent implements OnInit {
       // dialog.componentInstance.user = this.user;
       dialog.componentInstance.user = new User(this.user.toJSON()); // Kopie vom Object erstellen
       dialog.componentInstance.userId = this.userId; // ID mit übergeben
+      
 
       dialog.afterClosed().subscribe(() => {
         this.getUser(); // Methode, die die User-Daten neu lädt

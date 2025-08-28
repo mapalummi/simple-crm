@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -32,7 +32,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './dialog-edit-user.component.html',
   styleUrl: './dialog-edit-user.component.scss',
 })
-export class DialogEditUserComponent {
+export class DialogEditUserComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
 
   user!: User;
@@ -42,17 +42,17 @@ export class DialogEditUserComponent {
 
   constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>) {}
 
-  // ALTE Methode
-  // saveUser(){
-  //   this.firestore
-  //   .collection('users')
-  //   .doc(this.userId)
-  //   .update(this.user.toJSON());
-  // }
+  ngOnInit() {
+    // birthDate als Date-Objekt für den Datepicker setzen
+    this.birthDate = this.user.birthDate ? new Date(this.user.birthDate) : null;
+  }
 
   async saveUser() {
     this.loading = true;
     try {
+      // birthDate zurück in Timestamp umwandeln
+      this.user.birthDate = this.birthDate ? this.birthDate.getTime() : null;
+
       const userDocRef = doc(this.firestore, 'users', this.userId);
       await updateDoc(userDocRef, this.user.toJSON());
       this.dialogRef.close();
