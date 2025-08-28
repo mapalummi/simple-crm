@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DialogEditUserComponent {
 user!: User;
+birthDate: Date | null = null; // Initialwert setzen!
 
 constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>) {}
 
