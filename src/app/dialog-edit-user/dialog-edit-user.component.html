@@ -13,6 +13,22 @@
       </mat-form-field>
     </div>
 
+
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Birth Date</mat-label>
+        <input
+          [(ngModel)]="user.birthDate"
+          matInput
+          placeholder="Birth Date"
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+
     <div>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>E-Mail</mat-label>

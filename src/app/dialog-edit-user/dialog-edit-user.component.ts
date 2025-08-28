@@ -6,10 +6,16 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user.class';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dialog-edit-user',
-  imports: [MatDialogModule, MatFormFieldModule, FormsModule, MatInputModule],
+  standalone: true,
+  providers: [provideNativeDateAdapter()],
+  imports: [MatDialogModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatIconModule],
   templateUrl: './dialog-edit-user.component.html',
   styleUrl: './dialog-edit-user.component.scss'
 })
