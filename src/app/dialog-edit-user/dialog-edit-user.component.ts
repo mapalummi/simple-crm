@@ -12,6 +12,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Firestore } from '@angular/fire/firestore';
 import { doc, updateDoc } from '@angular/fire/firestore';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -25,6 +27,8 @@ import { doc, updateDoc } from '@angular/fire/firestore';
     MatButtonModule,
     MatDatepickerModule,
     MatIconModule,
+    MatProgressBarModule,
+    NgIf,
   ],
   templateUrl: './dialog-edit-user.component.html',
   styleUrl: './dialog-edit-user.component.scss',
@@ -35,6 +39,7 @@ export class DialogEditUserComponent {
   user!: User;
   birthDate: Date | null = null; // Initialwert setzen!
   userId!: string;
+  loading = false;
 
   constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>) {}
 
@@ -47,8 +52,14 @@ export class DialogEditUserComponent {
   // }
 
   async saveUser() {
-    const userDocRef = doc(this.firestore, 'users', this.userId);
-    await updateDoc(userDocRef, this.user.toJSON());
-    this.dialogRef.close();
+    this.loading = true;
+    try {
+      const userDocRef = doc(this.firestore, 'users', this.userId);
+      await updateDoc(userDocRef, this.user.toJSON());
+      this.dialogRef.close();
+    } catch (error) {
+      console.log('Error at saving:', error);
+      this.loading = false;
+    }
   }
 }

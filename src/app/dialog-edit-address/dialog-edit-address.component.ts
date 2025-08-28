@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Firestore } from '@angular/fire/firestore';
 import { doc, updateDoc } from '@angular/fire/firestore';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -18,6 +20,8 @@ import { doc, updateDoc } from '@angular/fire/firestore';
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    MatProgressBarModule,
+    NgIf,
   ],
   templateUrl: './dialog-edit-address.component.html',
   styleUrl: './dialog-edit-address.component.scss',
@@ -27,6 +31,7 @@ export class DialogEditAddressComponent {
 
   user!: User;
   userId!: string;
+  loading = false;
 
   constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>) {}
 
@@ -39,8 +44,14 @@ export class DialogEditAddressComponent {
   // }
 
   async saveUser() {
-    const userDocRef = doc(this.firestore, 'users', this.userId);
-    await updateDoc(userDocRef, this.user.toJSON());
-    this.dialogRef.close();
+    this.loading = true;
+    try {
+      const userDocRef = doc(this.firestore, 'users', this.userId);
+      await updateDoc(userDocRef, this.user.toJSON());
+      this.dialogRef.close();
+    } catch (error) {
+      console.log('Error at saving:', error);
+      this.loading = false;
+    }
   }
 }
