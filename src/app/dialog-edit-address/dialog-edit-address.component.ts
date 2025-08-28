@@ -34,14 +34,6 @@ export class DialogEditAddressComponent {
 
   constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>) {}
 
-  // ALTE Methode
-  // saveUser(){
-  //   this.firestore
-  //   .collection('users')
-  //   .doc(this.userId)
-  //   .update(this.user.toJSON());
-  // }
-
   async saveUser() {
     this.loading = true;
     try {
